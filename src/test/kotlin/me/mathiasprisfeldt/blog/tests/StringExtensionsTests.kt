@@ -31,6 +31,12 @@ class StringExtensionsTests {
     }
 
     @Test
+    fun `Word count one word with dash`() {
+        val text = "dette er bare en-proeve"
+        assertThat(text.wordCount(), `is`(4))
+    }
+
+    @Test
     fun `Period count zero`() {
         val text = "Nu begynder noget test tekst"
         assertThat(text.periodCount(), `is`(0))
@@ -45,13 +51,13 @@ class StringExtensionsTests {
     @Test
     fun `Word length count, length of 7 or greater`() {
         val text = "Nukommerderetlangtord men dog ogsaa nogle leangereendfoer"
-        assertThat(text.wordLengthCount(7), `is`(2))
+        assertThat(text.wordCountByLength(7), `is`(2))
     }
 
     @Test
     fun `Word length count, length of 3`() {
         val text = "nogle mindre ord er der ogsaa, da det er med tallet 3"
-        assertThat(text.wordLengthCount(3), `is`(8))
+        assertThat(text.wordCountByLength(3), `is`(8))
     }
 
     @Test
@@ -62,7 +68,7 @@ class StringExtensionsTests {
             lange siden det nok er dem der gør tekst.
         """.trimMultiLine()
 
-        assertThat(text.lix(), `is`(Pair(23, "Let tekst for alle læsere.")))
+        assertThat(text.lix(), `is`(Pair(21, "Let tekst for alle læsere.")))
     }
 
     @Test
@@ -73,7 +79,7 @@ class StringExtensionsTests {
             lange siden det nok er dem der gør teksten svær. Sådeertt awidjaiw.
         """.trimMultiLine()
 
-        assertThat(text.lix(), `is`(Pair(27, "Let for øvede læsere.")))
+        assertThat(text.lix(), `is`(Pair(25, "Let for øvede læsere.")))
     }
 
     @Test
@@ -86,7 +92,7 @@ class StringExtensionsTests {
             aidjaiwjd. ajwidjaiwdj. awjidjaw. jiawdjiaw. awidjwid.
         """.trimMultiLine()
 
-        assertThat(text.lix(), `is`(Pair(37, "Middel.")))
+        assertThat(text.lix(), `is`(Pair(35, "Middel.")))
     }
 
     @Test

@@ -2,16 +2,11 @@ package me.mathiasprisfeldt.blog.me.mathiasprisfeldt.blog.extensions
 
 fun String.trimMultiLine(): String = this.trimIndent().replace(Regex("[\n\r]"), " ")
 
-fun String.wordCount(): Int {
-    val trimmed = this.replace(Regex("[.,]"), "").trim()
-
-    if (trimmed.isEmpty()) return 0
-
-    return trimmed.split(' ').count()
-}
+fun String.words() = Regex("""[\wæøå]+(-+[\wæøå]+)?""").findAll(this)
+fun String.wordCount(): Int = this.words().count()
+fun String.wordCountByLength(length: Int): Int = this.words().count { it.value.length >= length }
 
 fun String.periodCount(): Int = this.count { it == '.' }
-fun String.wordLengthCount(length: Int): Int = this.split(' ').count { it.length >= length }
 
 fun String.lix(): Pair<Int, String> {
     val wordCount = this.wordCount()
@@ -20,7 +15,7 @@ fun String.lix(): Pair<Int, String> {
     val periodCount = this.periodCount()
     if (periodCount == 0) return Pair(0, "Teksten har ingen punktummer.")
 
-    val longWordsCount = this.wordLengthCount(7)
+    val longWordsCount = this.wordCountByLength(7)
 
     val lixAmount = Math.round((wordCount / periodCount.toFloat()) + ((longWordsCount * 100) / wordCount.toFloat()))
 
