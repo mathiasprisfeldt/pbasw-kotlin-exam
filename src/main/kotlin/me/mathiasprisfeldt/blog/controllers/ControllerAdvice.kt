@@ -1,4 +1,4 @@
-package me.mathiasprisfeldt.blog.me.mathiasprisfeldt.blog.controllers
+package me.mathiasprisfeldt.blog.controllers
 
 import me.mathiasprisfeldt.blog.BlogProperties
 import org.springframework.web.bind.annotation.ControllerAdvice

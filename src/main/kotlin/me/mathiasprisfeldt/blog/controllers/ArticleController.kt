@@ -1,4 +1,4 @@
-package me.mathiasprisfeldt.blog.me.mathiasprisfeldt.blog.controllers
+package me.mathiasprisfeldt.blog.controllers
 
 import me.mathiasprisfeldt.blog.entities.ArticleRepository
 import org.springframework.stereotype.Controller
