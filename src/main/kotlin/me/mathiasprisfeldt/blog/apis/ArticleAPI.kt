@@ -13,7 +13,7 @@ class ArticleAPI(private val articleRepository: ArticleRepository) {
     @GetMapping("/")
     fun findAll() = articleRepository.findAllByOrderByAddedAtDesc()
 
-    @GetMapping("/{slug")
+    @GetMapping("/{slug}")
     fun findOne(@PathVariable slug: String) =
             articleRepository.findBySlug(slug) ?: throw IllegalArgumentException("Wrong article slug.")
 }

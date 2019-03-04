@@ -10,10 +10,10 @@ fun String.periodCount(): Int = this.count { it == '.' }
 
 fun String.lix(): Pair<Int, String> {
     val wordCount = this.wordCount()
-    if (wordCount == 0) return Pair(0, "Teksten har ingen ord.")
+    if (wordCount == 0) return 0 to "Teksten har ingen ord."
 
     val periodCount = this.periodCount()
-    if (periodCount == 0) return Pair(0, "Teksten har ingen punktummer.")
+    if (periodCount == 0) return 0 to "Teksten har ingen punktummer."
 
     val longWordsCount = this.wordCountByLength(7)
 
@@ -28,5 +28,5 @@ fun String.lix(): Pair<Int, String> {
         else -> "Ukendt."
     }
 
-    return Pair(lixAmount, lixText)
+    return lixAmount to lixText
 }

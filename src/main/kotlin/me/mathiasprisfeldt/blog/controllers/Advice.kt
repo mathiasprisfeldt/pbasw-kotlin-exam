@@ -5,7 +5,7 @@ import org.springframework.web.bind.annotation.ControllerAdvice
 import org.springframework.web.bind.annotation.ModelAttribute
 
 @ControllerAdvice
-class ControllerAdvice(private val blogProperties: BlogProperties) {
+class Advice(private val blogProperties: BlogProperties) {
 
     @ModelAttribute("cfg")
     fun modelCfg(): BlogProperties.Model {
