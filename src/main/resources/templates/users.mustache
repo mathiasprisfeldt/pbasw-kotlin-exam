@@ -1,0 +1,28 @@
+{{> header}}
+
+<style>
+    .user-article {
+        margin-top: 10px;
+        margin-bottom: 10px;
+    }
+</style>
+
+<h1>Users</h1>
+
+<section class="users">
+    {{#users}}
+        <article class="user-article">
+            <b>Name:</b> {{firstName}} {{lastName}} <br>
+
+            <b>Description:</b>
+            {{#description}}
+                {{description}}
+            {{/description}}
+            {{^description}}
+                No description.
+            {{/description}}
+        </article>
+    {{/users}}
+</section>
+
+{{> submenu-footer}}

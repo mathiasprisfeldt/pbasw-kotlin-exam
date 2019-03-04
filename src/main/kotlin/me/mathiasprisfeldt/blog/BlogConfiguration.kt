@@ -15,6 +15,9 @@ class BlogConfiguration {
     fun databaseIntializer(userRepository: UserRepository,
                            articleRepository: ArticleRepository) = ApplicationRunner {
         val user = userRepository.save(User("tonnibonde", "Tonni", "Bonde"))
+        val user1 = userRepository.save(User("bentebent", "Bente", "Bent"))
+        val user2 = userRepository.save(User("katjakaj", "Katja", "Kaj"))
+        val user3 = userRepository.save(User("mickilynge", "Micki", "Lynge"))
 
         articleRepository.save(Article(
                 title = "Tonni Bonde's Underværker",

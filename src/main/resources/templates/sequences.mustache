@@ -1,0 +1,42 @@
+<style>
+    form > label {
+        display: block;
+        margin-bottom: 5px;
+    }
+</style>
+
+<h1>Math-table Calculator</h1>
+
+<form action="" name="sequences-form" method="post">
+
+    <label for="tableNumber">Enter a number - ex. 3 for the 3 math-table: </label>
+    <input name="tableNumber" type="number">
+
+    <br><br>
+
+    <label>How much it should count to - ex. 5 for the 5 first numbers in the math-table: </label>
+    <input name="tablePrintAmount" type="number">
+
+    <br><br>
+
+    {{#isValid}}
+        <br>
+
+        {{#isValid.first}}
+            <b>Calculating the first {{tablePrintAmount}} values for the {{tableNumber}}-math-table.</b>
+            <br>
+            <b>Result: {{result}}</b>
+        {{/isValid.first}}
+        {{^isValid.first}}
+            <b>Invalid input:</b> {{isValid.second}}
+        {{/isValid.first}}
+    {{/isValid}}
+
+    {{#error}}
+        <h1>WOAH ERRORS MAAAN</h1>
+    {{/error}}
+
+    <p><input type="submit" value="Submit" /> </p>
+</form>
+
+{{> submenu-footer}}
