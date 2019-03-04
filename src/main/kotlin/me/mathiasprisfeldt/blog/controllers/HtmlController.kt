@@ -39,7 +39,7 @@ class HtmlController(
         model["title"] = article.title
         model["article"] = article
 
-        return "article"
+        return "article_new"
     }
 
 }

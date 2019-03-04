@@ -18,7 +18,7 @@ class BlogConfiguration {
 
         articleRepository.save(Article(
                 title = "Tonni Bonde's Underværker",
-                headline = "Du kan få kan du",
+                headline = "Du kan få kan du satans i alt verdens lort",
                 content = "Jeg ved det sgu ikke du",
                 author = user
         ))

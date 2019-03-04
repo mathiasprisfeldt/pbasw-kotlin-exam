@@ -1,0 +1,19 @@
+{{> header}}
+
+<section class="article">
+    <header class="article-header">
+        <h1 class="article-title">{{article.title}}</h1>
+        <p class="article-meta">By  <strong>{{article.author.firstname}}</strong>, on <strong>{{article.addedAtFormatted}}</strong></p>
+    </header>
+
+    <div class="article-info">
+        <p>Word(s) in this article: {{article.wordCount}}</p>
+    </div>
+
+    <div class="article-description">
+        <h3><u>{{article.headline}}</u></h3>
+        {{article.content}}
+    </div>
+</section>
+
+{{> footer}}
