@@ -1,6 +1,6 @@
 package me.mathiasprisfeldt.blog.tests
 
-import me.mathiasprisfeldt.blog.me.mathiasprisfeldt.blog.extensions.*
+import me.mathiasprisfeldt.blog.extensions.*
 import org.junit.jupiter.api.Test
 import org.hamcrest.MatcherAssert.assertThat
 import org.hamcrest.Matchers.*

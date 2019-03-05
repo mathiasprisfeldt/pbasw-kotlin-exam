@@ -2,11 +2,10 @@ package me.mathiasprisfeldt.blog.tests
 
 import com.ninjasquad.springmockk.MockkBean
 import io.mockk.every
-import javafx.application.Application
 import me.mathiasprisfeldt.blog.entities.Article
-import me.mathiasprisfeldt.blog.entities.ArticleRepository
 import me.mathiasprisfeldt.blog.entities.User
-import me.mathiasprisfeldt.blog.entities.UserRepository
+import me.mathiasprisfeldt.blog.repositories.ArticleRepository
+import me.mathiasprisfeldt.blog.repositories.UserRepository
 import org.hamcrest.Matchers.*
 import org.junit.jupiter.api.Test
 import org.springframework.beans.factory.annotation.Autowired
@@ -26,7 +25,7 @@ class HttpControllersTests(@Autowired val mockMvc: MockMvc) {
     @MockkBean
     private lateinit var articleRepository: ArticleRepository
 
-    val user = User("tonnibonde", "Tonni", "Bonde")
+    val user = User("tonnibonde", "Tonni", "Bonde", "ASd")
 
     val article1 = Article(
             title = "Tonni Bonde's Underværker",

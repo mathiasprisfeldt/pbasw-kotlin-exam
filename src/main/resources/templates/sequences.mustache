@@ -22,21 +22,19 @@
     {{#isValid}}
         <br>
 
-        {{#isValid.first}}
+        {{#first}}
             <b>Calculating the first {{tablePrintAmount}} values for the {{tableNumber}}-math-table.</b>
             <br>
             <b>Result: {{result}}</b>
-        {{/isValid.first}}
-        {{^isValid.first}}
-            <b>Invalid input:</b> {{isValid.second}}
-        {{/isValid.first}}
+        {{/first}}
+        {{^first}}
+            <b>Invalid input:</b> {{second}}
+        {{/first}}
     {{/isValid}}
 
-    {{#error}}
-        <h1>WOAH ERRORS MAAAN</h1>
-    {{/error}}
-
-    <p><input type="submit" value="Submit" /> </p>
+    <input type="submit" value="Submit" />
 </form>
+
+<h3><a href="">Reset</a></h3>
 
 {{> submenu-footer}}

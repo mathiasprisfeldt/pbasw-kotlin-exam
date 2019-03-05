@@ -1,9 +1,9 @@
 package me.mathiasprisfeldt.blog.tests
 
 import me.mathiasprisfeldt.blog.entities.Article
-import me.mathiasprisfeldt.blog.entities.ArticleRepository
 import me.mathiasprisfeldt.blog.entities.User
-import me.mathiasprisfeldt.blog.entities.UserRepository
+import me.mathiasprisfeldt.blog.repositories.ArticleRepository
+import me.mathiasprisfeldt.blog.repositories.UserRepository
 import org.junit.jupiter.api.Test
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest
 import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager
@@ -23,7 +23,8 @@ class RepositoriesTests @Autowired constructor(
         val user = User(
                 "testuser",
                 "test",
-                "user"
+                "user",
+                "ASD"
         )
         entityManager.persist(user)
 
@@ -45,12 +46,13 @@ class RepositoriesTests @Autowired constructor(
         val user = User(
                 "testuser",
                 "test",
-                "user"
+                "user",
+                "ASd"
         )
         entityManager.persist(user)
 
         entityManager.flush()
-        val foundUser = userRepository.findByLogin(user.login)
+        val foundUser = userRepository.findByUsername(user.username)
         assertThat(foundUser).isEqualTo(user)
     }
 }

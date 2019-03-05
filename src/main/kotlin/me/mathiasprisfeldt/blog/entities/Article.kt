@@ -2,8 +2,8 @@ package me.mathiasprisfeldt.blog.entities
 
 import me.mathiasprisfeldt.blog.extensions.format
 import me.mathiasprisfeldt.blog.extensions.toSlug
-import me.mathiasprisfeldt.blog.me.mathiasprisfeldt.blog.extensions.lix
-import me.mathiasprisfeldt.blog.me.mathiasprisfeldt.blog.extensions.wordCount
+import me.mathiasprisfeldt.blog.extensions.lix
+import me.mathiasprisfeldt.blog.extensions.wordCount
 import org.springframework.data.repository.CrudRepository
 import java.time.LocalDateTime
 import javax.persistence.Entity
@@ -31,9 +31,4 @@ class Article(
         get() = with(content.lix()) {
             if (first == 0) second else "$first ($second)"
         }
-}
-
-interface ArticleRepository : CrudRepository<Article, Long> {
-    fun findBySlug(slug: String): Article?
-    fun findAllByOrderByAddedAtDesc(): Iterable<Article>
 }

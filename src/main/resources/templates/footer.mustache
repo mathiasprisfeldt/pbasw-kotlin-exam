@@ -1,4 +1,11 @@
 <footer>
+    {{#currUser}}
+        Logged in as <a href="/profile">{{firstName}} {{lastName}}</a>
+        <br>
+        <a href="/logout">Logout</a>
+        <br>
+        <br>
+    {{/currUser}}
     {{cfg.copyright}} by {{cfg.author}}
 </footer>
 </body>

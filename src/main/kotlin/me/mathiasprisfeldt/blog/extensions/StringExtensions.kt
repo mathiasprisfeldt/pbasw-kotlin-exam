@@ -1,4 +1,4 @@
-package me.mathiasprisfeldt.blog.me.mathiasprisfeldt.blog.extensions
+package me.mathiasprisfeldt.blog.extensions
 
 fun String.trimMultiLine(): String = this.trimIndent().replace(Regex("[\n\r]"), " ")
 

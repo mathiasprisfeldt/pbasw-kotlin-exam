@@ -1,9 +1,9 @@
-package me.mathiasprisfeldt.blog
+package me.mathiasprisfeldt.blog.configurations
 
 import me.mathiasprisfeldt.blog.entities.Article
-import me.mathiasprisfeldt.blog.entities.ArticleRepository
 import me.mathiasprisfeldt.blog.entities.User
-import me.mathiasprisfeldt.blog.entities.UserRepository
+import me.mathiasprisfeldt.blog.repositories.ArticleRepository
+import me.mathiasprisfeldt.blog.repositories.UserRepository
 import org.springframework.boot.ApplicationRunner
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
@@ -14,10 +14,7 @@ class BlogConfiguration {
     @Bean
     fun databaseIntializer(userRepository: UserRepository,
                            articleRepository: ArticleRepository) = ApplicationRunner {
-        val user = userRepository.save(User("tonnibonde", "Tonni", "Bonde"))
-        val user1 = userRepository.save(User("bentebent", "Bente", "Bent"))
-        val user2 = userRepository.save(User("katjakaj", "Katja", "Kaj"))
-        val user3 = userRepository.save(User("mickilynge", "Micki", "Lynge"))
+        val user = userRepository.save(User("tonnibonde", "password", "Bonde", "Bonde"))
 
         articleRepository.save(Article(
                 title = "Tonni Bonde's Underværker",

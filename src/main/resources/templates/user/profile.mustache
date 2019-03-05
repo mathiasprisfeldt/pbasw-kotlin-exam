@@ -1,0 +1,18 @@
+{{> header}}
+
+{{#user}}
+    <article>
+        <b>Name:</b> {{firstName}} {{lastName}} <br>
+
+        <b>Description:</b>
+        {{#description}}
+            {{description}}
+        {{/description}}
+        {{^description}}
+            No description.
+        {{/description}}
+    </article>
+    <br>
+{{/user}}
+
+{{> submenu-footer}}

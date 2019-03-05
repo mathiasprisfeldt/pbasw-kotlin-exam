@@ -1,0 +1,25 @@
+{{> header}}
+
+<form name="registration-form" method="post">
+    <label for="username">Username: </label>
+    <input name="username" type="text" required>
+    <br>
+    <br>
+
+    <label for="password">Password: </label>
+    <input name="password" type="password" required>
+    <br>
+    <br>
+    <br>
+
+    {{#errMsg}}
+        <p>{{errMsg}}</p>
+    {{/errMsg}}
+    <input type="submit" value="Login">
+
+    <br>
+    <br>
+    <a href="/register">Register new user</a>
+</form>
+
+{{> footer}}

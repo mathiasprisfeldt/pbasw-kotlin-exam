@@ -1,0 +1,33 @@
+{{> header}}
+
+<form action="" name="registration-form" method="post">
+    <label for="username">Username: </label>
+    <input name="username" type="text" required>
+    <br>
+    <br>
+
+    <label for="password">Password: </label>
+    <input name="password" type="password" required>
+    <br>
+
+    <label for="reEnterPassword">Re-enter password: </label>
+    <input name="reEnterPassword" type="password" required>
+    <br>
+    <br>
+
+    <label for="firstName">First name:</label>
+    <input name="firstName" type="text" required>
+    <br>
+
+    <label for="lastName">Last name:</label>
+    <input name="lastName" type="text" required>
+    <br>
+    <br>
+
+    {{#errMsg}}
+        <p>{{errMsg}}</p>
+    {{/errMsg}}
+    <input type="submit" value="Register">
+</form>
+
+{{> footer}}

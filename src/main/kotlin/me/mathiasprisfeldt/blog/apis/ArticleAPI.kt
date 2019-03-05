@@ -1,6 +1,6 @@
 package me.mathiasprisfeldt.blog.apis
 
-import me.mathiasprisfeldt.blog.entities.ArticleRepository
+import me.mathiasprisfeldt.blog.repositories.ArticleRepository
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.PathVariable
 import org.springframework.web.bind.annotation.RequestMapping

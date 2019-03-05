@@ -1,6 +1,6 @@
 package me.mathiasprisfeldt.blog.controllers
 
-import me.mathiasprisfeldt.blog.entities.ArticleRepository
+import me.mathiasprisfeldt.blog.repositories.ArticleRepository
 import org.springframework.stereotype.Controller
 import org.springframework.ui.Model
 import org.springframework.ui.set
