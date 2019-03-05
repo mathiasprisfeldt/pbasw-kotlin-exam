@@ -23,6 +23,6 @@ class Advice(private val blogProperties: BlogProperties,
         if (token == null)
             return null
 
-        return userAPI.profile(token, response)
+        return userAPI.profile(token, response).data.orElse(null)
     }
 }

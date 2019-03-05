@@ -12,6 +12,15 @@
             No description.
         {{/description}}
     </article>
+    <article class="articles">
+        {{#articles}}
+            <section>
+                <h2 class="article-title">
+                    <a href="/article/{{slug}}">{{title}} - {{headline}}</a>
+                </h2>
+            </section>
+        {{/articles}}
+    </article>
     <br>
 {{/user}}
 

@@ -1,6 +1,8 @@
 package me.mathiasprisfeldt.blog.extensions
 
+import me.mathiasprisfeldt.blog.entities.User
 import java.time.LocalDateTime
+import java.util.*
 import javax.servlet.http.Cookie
 import javax.servlet.http.HttpServletResponse
 
@@ -15,6 +17,10 @@ fun HttpServletResponse.json(httpCode: Int, msg: String = ""): JSONResponse {
     return JSONResponse(httpCode, msg)
 }
 
+fun <T> HttpServletResponse.dataJson(httpCode: Int, msg: String = "", data: T? = null): DataJSONResponse<T> {
+    return DataJSONResponse(httpCode, msg, Optional.ofNullable(data))
+}
+
 fun String.authCookie(): Cookie {
     val cookie = Cookie("auth-token", this)
     cookie.path = "/"
@@ -22,6 +28,13 @@ fun String.authCookie(): Cookie {
 
     return cookie
 }
+
+data class DataJSONResponse<T> (
+        val status: Int,
+        val message: String,
+        val data: Optional<T>,
+        val timestamp: LocalDateTime = LocalDateTime.now()
+)
 
 data class JSONResponse (
         val status: Int,

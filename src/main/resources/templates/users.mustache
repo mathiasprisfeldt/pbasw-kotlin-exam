@@ -12,7 +12,7 @@
 <section class="users">
     {{#users}}
         <article class="user-article">
-            <b>Name:</b> {{firstName}} {{lastName}} <br>
+            <b>Name:</b> <a href="/profile/{{username}}">{{firstName}} {{lastName}}</a><br>
 
             <b>Description:</b>
             {{#description}}

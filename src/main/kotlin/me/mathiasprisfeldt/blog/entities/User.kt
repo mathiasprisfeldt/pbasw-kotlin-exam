@@ -1,8 +1,6 @@
 package me.mathiasprisfeldt.blog.entities
 
-import javax.persistence.Entity
-import javax.persistence.GeneratedValue
-import javax.persistence.Id
+import javax.persistence.*
 
 @Entity
 class User(
@@ -11,6 +9,10 @@ class User(
         var firstName: String,
         var lastName: String,
         var description: String? = null,
+
+        @OneToMany(targetEntity = Article::class, mappedBy = "author")
+        var articles: List<Article> = emptyList(),
+
         @Id @GeneratedValue var id: Long? = null) {
 
     var token: String = ""

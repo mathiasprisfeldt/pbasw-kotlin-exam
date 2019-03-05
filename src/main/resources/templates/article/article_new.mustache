@@ -16,6 +16,17 @@
         <h3><u>{{article.headline}}</u></h3>
         {{article.content}}
     </div>
+
+    {{#owner}}
+        <br>
+        <br>
+        {{#errMsg}}
+            <p>{{errMsg}}</p>
+        {{/errMsg}}
+        <form method="post">
+            <input type="submit" value="Delete">
+        </form>
+    {{/owner}}
 </section>
 
 {{> submenu-footer}}

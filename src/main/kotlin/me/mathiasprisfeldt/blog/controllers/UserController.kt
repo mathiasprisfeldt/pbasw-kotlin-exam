@@ -2,6 +2,7 @@ package me.mathiasprisfeldt.blog.controllers
 
 import me.mathiasprisfeldt.blog.apis.RegistrationForm
 import me.mathiasprisfeldt.blog.apis.UserAPI
+import me.mathiasprisfeldt.blog.entities.Article
 import me.mathiasprisfeldt.blog.entities.User
 import me.mathiasprisfeldt.blog.repositories.UserRepository
 import org.springframework.stereotype.Controller
@@ -91,12 +92,12 @@ class UserController(private val userRepository: UserRepository,
 
     @GetMapping("/profile")
     fun getCurrUserProfile(@ModelAttribute("currUser") user: User?,
-                           model: Model): String {
+                           model: Model,
+                           response: HttpServletResponse): String {
         if (user == null)
             return "redirect:/"
 
-        model["user"] = user
-        return "user/profile"
+        return getProfile(user, user.username, model, response)
     }
 
     @GetMapping("/profile/{username}")
@@ -104,6 +105,7 @@ class UserController(private val userRepository: UserRepository,
                    @PathVariable username: String,
                    model: Model,
                    response: HttpServletResponse): String {
+
         if (user == null) {
             response.sendError(HttpServletResponse.SC_FORBIDDEN)
             return ""
@@ -112,6 +114,7 @@ class UserController(private val userRepository: UserRepository,
         val foundUser = userRepository.findByUsername(username)
         if (foundUser != null) {
             model["user"] = foundUser
+            model["articles"] = foundUser.articles
         }
 
         return "user/profile"

@@ -14,19 +14,22 @@ class BlogConfiguration {
     @Bean
     fun databaseIntializer(userRepository: UserRepository,
                            articleRepository: ArticleRepository) = ApplicationRunner {
-        val user = userRepository.save(User("tonnibonde", "password", "Bonde", "Bonde"))
+        val user = User("tonnibonde", "password", "Bonde", "Bonde")
+        user.description = "Manden der kan sælge dig alt!"
+        userRepository.save(user)
 
         articleRepository.save(Article(
-                title = "Tonni Bonde's Underværker",
-                headline = "Du kan få kan du satans i alt verdens lort",
-                content = "Jeg ved det sgu ikke du",
+                title = "Tonni Bonde's Marketing Tips",
+                headline = "Bli' Anderkendt, hørt og stjålen fra",
+                content = "Tonni nåede desværre ikke at skrive denne bog færdig da han har travlt" +
+                        "ved at sælge en masse ting.",
                 author = user
         ))
 
         articleRepository.save(Article(
                 title = "Tonni Bonde's Kogebog",
-                headline = "Den helige gral",
-                content = "Du skal bruge et barn eller to",
+                headline = "159 tips til hvordan du tilbereder en klageånd",
+                content = "Læg låg på og ind i æ' ovn, nemt og renligt.",
                 author = user
         ))
     }

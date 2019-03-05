@@ -2,9 +2,7 @@ package me.mathiasprisfeldt.blog.apis
 
 import me.mathiasprisfeldt.blog.configurations.JWTConfiguration
 import me.mathiasprisfeldt.blog.entities.User
-import me.mathiasprisfeldt.blog.extensions.JSONResponse
-import me.mathiasprisfeldt.blog.extensions.authCookie
-import me.mathiasprisfeldt.blog.extensions.json
+import me.mathiasprisfeldt.blog.extensions.*
 import me.mathiasprisfeldt.blog.repositories.UserRepository
 import org.springframework.web.bind.annotation.*
 import javax.servlet.http.HttpServletResponse
@@ -82,26 +80,31 @@ class UserAPI(private val userRepository: UserRepository,
 
     @GetMapping("/validate")
     fun validate(@CookieValue("auth-token") token: String,
-                 response: HttpServletResponse): String? {
+                 response: HttpServletResponse): DataJSONResponse<String> {
 
         val jwt = jwtConfiguration.verifyRefresh(token)
-                ?: return null
+                ?: return response.dataJson(HttpServletResponse.SC_BAD_REQUEST, "Couldn't validate token")
 
         response.addCookie(jwt.authCookie())
-        return jwt
+        return response.dataJson(HttpServletResponse.SC_OK, "Successfully validated and refreshed token", jwt)
     }
 
     @GetMapping("/profile")
     fun profile(@CookieValue("auth-token") token: String,
-                response: HttpServletResponse): User? {
+                response: HttpServletResponse): DataJSONResponse<User> {
         val validate = validate(token, response)
-                ?: return null
+        if (validate.status != HttpServletResponse.SC_OK)
+            return response.dataJson(HttpServletResponse.SC_BAD_REQUEST, "Couldn't validate token")
 
-        val decodedToken = jwtConfiguration.verify(validate)
+        val decodedToken = jwtConfiguration.verify(validate.data.get())
         val id = decodedToken?.getClaim("user-id")?.asLong()
-                ?: return null
+                ?: return response.dataJson(HttpServletResponse.SC_BAD_REQUEST, "Bad token.")
 
-        return userRepository.findById(id).orElse(null)
+        val foundProfile = userRepository.findById(id)
+        if (!foundProfile.isPresent)
+            return response.dataJson(HttpServletResponse.SC_BAD_REQUEST, "Failed to find profile.")
+
+        return response.dataJson(HttpServletResponse.SC_OK, data = foundProfile.get())
     }
 }
 
