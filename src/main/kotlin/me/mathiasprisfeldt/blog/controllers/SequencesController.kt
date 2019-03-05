@@ -2,20 +2,19 @@ package me.mathiasprisfeldt.blog.controllers
 
 import org.springframework.stereotype.Controller
 import org.springframework.ui.Model
-import org.springframework.web.bind.annotation.GetMapping
-import org.springframework.web.bind.annotation.ModelAttribute
-import org.springframework.web.bind.annotation.PostMapping
+import org.springframework.web.bind.annotation.*
 import org.springframework.web.servlet.ModelAndView
 
 @Controller
+@RequestMapping("/sequences")
 class SequencesController {
 
-    @GetMapping("/sequences")
+    @GetMapping("")
     fun getSequences(model: Model): String {
         return "sequences"
     }
 
-    @PostMapping("/sequences")
+    @PostMapping("")
     fun postSequences(@ModelAttribute form: SequencesForm): ModelAndView {
         val mv = ModelAndView("sequences")
 

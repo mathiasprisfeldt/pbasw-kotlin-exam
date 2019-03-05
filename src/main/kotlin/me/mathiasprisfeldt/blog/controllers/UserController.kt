@@ -15,13 +15,21 @@ class UserController(private val userRepository: UserRepository,
                      private val userAPI: UserAPI) {
 
     @GetMapping("/users")
-    fun getUsers(model: Model): String {
+    fun getUsers(@ModelAttribute("currUser") user: User?,
+                 model: Model): String {
+        if (user == null)
+            return "redirect:/"
+
         model["users"] = userRepository.findAll()
         return "users"
     }
 
     @GetMapping("/register")
-    fun getRegister(model: Model): String {
+    fun getRegister(@ModelAttribute("currUser") user: User?,
+                    model: Model): String {
+        if (user != null)
+            return "redirect:/"
+
         return "user/register"
     }
 
@@ -43,11 +51,15 @@ class UserController(private val userRepository: UserRepository,
             return "user/register"
         }
 
-        return "redirect:/home"
+        return "redirect:/"
     }
 
     @GetMapping("/login")
-    fun getLogin(model: Model) : String {
+    fun getLogin(@ModelAttribute("currUser") user: User?,
+                 model: Model) : String {
+        if (user != null)
+            return "redirect:/"
+
         return "user/login"
     }
 
@@ -60,7 +72,7 @@ class UserController(private val userRepository: UserRepository,
         val errMsg = userAPI.login(username, password, response)
 
         if (errMsg.status == HttpServletResponse.SC_ACCEPTED)
-            return "redirect:/home"
+            return "redirect:/"
 
         model["errMsg"] = errMsg.message
         return "user/login"
