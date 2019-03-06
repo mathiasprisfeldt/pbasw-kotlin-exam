@@ -32,12 +32,10 @@ fun String.authCookie(): Cookie {
 data class DataJSONResponse<T> (
         val status: Int,
         val message: String,
-        val data: Optional<T>,
-        val timestamp: LocalDateTime = LocalDateTime.now()
+        val data: Optional<T>
 )
 
 data class JSONResponse (
         val status: Int,
-        val message: String,
-        val timestamp: LocalDateTime = LocalDateTime.now()
+        val message: String
 )

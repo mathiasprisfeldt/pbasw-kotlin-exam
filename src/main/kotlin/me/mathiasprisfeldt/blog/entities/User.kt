@@ -1,5 +1,8 @@
 package me.mathiasprisfeldt.blog.entities
 
+import com.fasterxml.jackson.annotation.JsonBackReference
+import com.fasterxml.jackson.annotation.JsonIdentityInfo
+import com.fasterxml.jackson.annotation.ObjectIdGenerators
 import javax.persistence.*
 
 @Entity
@@ -10,6 +13,7 @@ class User(
         var lastName: String,
         var description: String? = null,
 
+        @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator::class, property = "id")
         @OneToMany(targetEntity = Article::class, mappedBy = "author")
         var articles: List<Article> = emptyList(),
 

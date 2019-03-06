@@ -6,6 +6,7 @@ import me.mathiasprisfeldt.blog.entities.User
 import org.springframework.web.bind.annotation.ControllerAdvice
 import org.springframework.web.bind.annotation.CookieValue
 import org.springframework.web.bind.annotation.ModelAttribute
+import javax.servlet.http.HttpServletRequest
 import javax.servlet.http.HttpServletResponse
 
 @ControllerAdvice
@@ -19,7 +20,8 @@ class Advice(private val blogProperties: BlogProperties,
 
     @ModelAttribute("currUser")
     fun loggedIn(@CookieValue("auth-token") token: String?,
-                 response: HttpServletResponse): User? {
+                 response: HttpServletResponse,
+                 request: HttpServletRequest): User? {
         if (token == null)
             return null
 
