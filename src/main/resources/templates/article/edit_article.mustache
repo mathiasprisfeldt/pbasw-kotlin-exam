@@ -1,18 +1,18 @@
 {{> header}}
 
-<h1>Create New Article</h1>
+<h1>Edit Article</h1>
 
 <form name="new-article-form" method="post">
     <label>
         Title:
-        <input name="title" type="text" required>
+        <input name="newTitle" type="text" value="{{article.title}}" required>
     </label>
     <br>
     <br>
 
     <label>
         Headline:
-        <input name="headline" type="text" required>
+        <input name="newHeadline" type="text" value="{{article.headline}}" required>
     </label>
     <br>
     <br>
@@ -20,7 +20,7 @@
     <label>
         Content:
         <br>
-        <textarea name="content" rows="15" cols="40"></textarea>
+        <textarea name="newContent" rows="15" cols="40">{{article.content}}</textarea>
     </label>
     <br>
     <br>
@@ -28,7 +28,7 @@
     {{#errMsg}}
         <p>{{errMsg}}</p>
     {{/errMsg}}
-    <input type="submit" value="Create">
+    <input type="submit" value="Edit">
 </form>
 
 {{> submenu-footer}}
