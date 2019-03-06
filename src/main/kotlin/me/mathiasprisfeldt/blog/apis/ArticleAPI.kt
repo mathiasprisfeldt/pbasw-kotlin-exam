@@ -65,7 +65,15 @@ class ArticleAPI(private val articleRepository: ArticleRepository) {
 
     @PostMapping("/article/edit")
     fun edit(@ModelAttribute("currUser") user: User?,
-             httpServletResponse: HttpServletResponse): JSONResponse {
-        TODO("Implement this")
+             @RequestParam("oldTitle") oldTitle: String,
+             @RequestParam("title") title: String,
+             @RequestParam("headline") headline: String,
+             @RequestParam("content") content: String,
+             response: HttpServletResponse): JSONResponse {
+
+        if (user == null)
+            return response.json(HttpServletResponse.SC_FORBIDDEN, "User not logged in.")
+
+        return response.json(HttpServletResponse.SC_OK, "Successfully edited article.")
     }
 }
