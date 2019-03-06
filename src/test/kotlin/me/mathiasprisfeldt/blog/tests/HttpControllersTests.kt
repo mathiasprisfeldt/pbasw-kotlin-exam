@@ -2,19 +2,16 @@ package me.mathiasprisfeldt.blog.tests
 
 import com.ninjasquad.springmockk.MockkBean
 import io.mockk.every
-import me.mathiasprisfeldt.blog.apis.ArticleAPI
-import me.mathiasprisfeldt.blog.apis.UserAPI
 import me.mathiasprisfeldt.blog.configurations.JWTConfiguration
 import me.mathiasprisfeldt.blog.entities.Article
 import me.mathiasprisfeldt.blog.entities.User
 import me.mathiasprisfeldt.blog.repositories.ArticleRepository
 import me.mathiasprisfeldt.blog.repositories.UserRepository
-import org.hamcrest.Matchers.*
+import org.hamcrest.Matchers.containsString
 import org.junit.jupiter.api.BeforeAll
 import org.junit.jupiter.api.Test
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest
-import org.springframework.boot.test.context.SpringBootTest
 import org.springframework.http.MediaType
 import org.springframework.test.web.servlet.MockMvc
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get
@@ -23,9 +20,9 @@ import org.springframework.test.web.servlet.result.MockMvcResultMatchers.status
 
 @WebMvcTest
 class HttpControllersTests(@Autowired val mockMvc: MockMvc) {
-    @MockkBean private lateinit var jwtConfiguration: JWTConfiguration
-    @MockkBean private lateinit var userRepository: UserRepository
-    @MockkBean private lateinit var articleRepository: ArticleRepository
+    @MockkBean(relaxed = true) private lateinit var jwtConfiguration: JWTConfiguration
+    @MockkBean(relaxed = true) private lateinit var userRepository: UserRepository
+    @MockkBean(relaxed = true) private lateinit var articleRepository: ArticleRepository
 
     val user = User("testuser", "Test", "User", "")
 
@@ -45,11 +42,6 @@ class HttpControllersTests(@Autowired val mockMvc: MockMvc) {
     )
 
     @Test
-    fun Test(){
-        jwtConfiguration.verifier.hashCode()
-    }
-
-    @Test
     fun `List all articles`() {
         every { articleRepository.findAllByOrderByAddedAtDesc() } returns listOf(article1, article2)
 
@@ -62,9 +54,7 @@ class HttpControllersTests(@Autowired val mockMvc: MockMvc) {
 
     @Test
     fun `List all users`() {
-        val findAll = userRepository.findAll()
-
-        every { findAll } returns listOf(user)
+        every { userRepository.findAll() } returns listOf(user)
 
         mockMvc.perform(get("/api/user/").accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk)
