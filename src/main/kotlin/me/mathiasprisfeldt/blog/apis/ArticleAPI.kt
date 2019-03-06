@@ -18,6 +18,10 @@ class ArticleAPI(private val articleRepository: ArticleRepository) {
     fun findOne(@PathVariable slug: String) =
             articleRepository.findBySlug(slug) ?: throw IllegalArgumentException("Wrong article slug.")
 
+
+    /**
+     * Takes the 3 input parameters and creates a new article under the current user.
+     */
     @PostMapping("/article/new")
     fun create(@ModelAttribute("currUser") user: User?,
                @RequestParam("title") title: String,
@@ -42,6 +46,10 @@ class ArticleAPI(private val articleRepository: ArticleRepository) {
         return response.dataJson(HttpServletResponse.SC_OK, "Successfully created new article.", article.slug)
     }
 
+    /**
+     * By a given slug as parameter it removes the aritcle if the current
+     * user is authorized.
+     */
     @PostMapping("/article/remove")
     fun remove(@ModelAttribute("currUser") user: User?,
                @RequestParam("slug") slug: String,
@@ -60,6 +68,9 @@ class ArticleAPI(private val articleRepository: ArticleRepository) {
         return response.json(HttpServletResponse.SC_OK, "Successfully deleted article $slug")
     }
 
+    /**
+     * Updates an existing article with new data if the user is authorized.
+     */
     @PostMapping("/article/edit")
     fun edit(@ModelAttribute("currUser") user: User?,
              @RequestParam("slug") slug: String,

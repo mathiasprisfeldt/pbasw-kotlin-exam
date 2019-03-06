@@ -14,6 +14,9 @@ import javax.servlet.http.HttpServletResponse
 class ArticleController(private val articleRepository: ArticleRepository,
                         private val articleAPI: ArticleAPI) {
 
+    /**
+     * Returns all the articles.
+     */
     @GetMapping("")
     fun getArticles(model: Model,
                     @ModelAttribute("currUser") user: User?): String {
@@ -23,6 +26,9 @@ class ArticleController(private val articleRepository: ArticleRepository,
         return "article/articles"
     }
 
+    /**
+     * Returns a specific article by its slug.
+     */
     @GetMapping("/{slug}")
     fun getArticle(@ModelAttribute("currUser") user: User?,
                    @PathVariable slug: String,
@@ -41,6 +47,9 @@ class ArticleController(private val articleRepository: ArticleRepository,
         return "article/article_new"
     }
 
+    /**
+     * Gets called when the user presses delete on their article.
+     */
     @PostMapping("/{slug}")
     fun postArticle(model: Model,
                     @ModelAttribute("currUser") user: User?,
@@ -57,6 +66,9 @@ class ArticleController(private val articleRepository: ArticleRepository,
         return "redirect:/"
     }
 
+    /**
+     * Renders the site for creating a new article.
+     */
     @GetMapping("/new")
     fun getNewArticle(@ModelAttribute("currUser") user: User?): String {
 
@@ -67,6 +79,9 @@ class ArticleController(private val articleRepository: ArticleRepository,
         return "article/create_article"
     }
 
+    /**
+     * Gets called when the users tries to create a new article.
+     */
     @PostMapping("/new")
     fun postNewArticle(model: Model,
                        @ModelAttribute("currUser") user: User?,
@@ -91,6 +106,10 @@ class ArticleController(private val articleRepository: ArticleRepository,
         return "redirect:/article/${article.data.get()}"
     }
 
+    /**
+     * Renders the site for editing a specific article by
+     * its slug.
+     */
     @GetMapping("/edit/{slug}")
     fun getEditArticle(model: Model,
                        @PathVariable slug: String,
@@ -107,6 +126,10 @@ class ArticleController(private val articleRepository: ArticleRepository,
         return "article/edit_article"
     }
 
+    /**
+     * Gets called when the user tries to save from the edit article page.
+     * Successfully updates the article if the new information is valid.
+     */
     @PostMapping("/edit/{slug}")
     fun postEditArticle(model: Model,
                         @ModelAttribute("currUser") user: User?,

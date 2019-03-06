@@ -36,6 +36,7 @@ class UserAPI(private val userRepository: UserRepository,
         token = jwtConfiguration.verifyRefresh(token)
                 ?: jwtConfiguration.create(user.id as Long)
 
+        // Give the newly created auth-token to the user by using cookies.
         response.addCookie(token.authCookie())
         return response.json(HttpServletResponse.SC_ACCEPTED, "Logged in successfully.")
     }
@@ -47,7 +48,9 @@ class UserAPI(private val userRepository: UserRepository,
         if (jwtConfiguration.verify(token) == null)
             return response.json(0, "Already logged out.")
 
+        // Since the user logged out we reset the auth-token cookie.
         response.addCookie("".authCookie())
+
         return response.json(HttpServletResponse.SC_OK,"Logged out successfully.")
     }
 
@@ -56,18 +59,22 @@ class UserAPI(private val userRepository: UserRepository,
     fun register(@ModelAttribute form: RegistrationForm,
                  response: HttpServletResponse): JSONResponse {
 
+        // Uses the forms own validation to check for errors.
         val valid = form.isValid()
         if (!valid.first)
-            return response.json(0, valid.second)
+            return response.json(0, valid.second) // Return the form validation msg to the requester.
 
+        // If the username in the form isn't null we run some registration logic.
         form.username?.run {
             if (userRepository.existsByUsername(this))
                 return response.json(HttpServletResponse.SC_FORBIDDEN, "Username taken.")
 
             val user = form.toUser()
-            val id = userRepository.save(user).id
 
-            val jwt = jwtConfiguration.create(id as Long)
+            // If we fail to create user with an unique id we go out of registration scope
+            val id = userRepository.save(user).id ?: return@run
+
+            val jwt = jwtConfiguration.create(id)
             user.token = jwt
 
             response.addCookie(jwt.authCookie())
@@ -78,6 +85,9 @@ class UserAPI(private val userRepository: UserRepository,
                 "Failed to create user, try again later.")
     }
 
+    /**
+     * Validates a given auth-token and generates a renewed one for next use.
+     */
     @GetMapping("/validate")
     fun validate(@CookieValue("auth-token") token: String,
                  response: HttpServletResponse): DataJSONResponse<String> {
@@ -89,9 +99,13 @@ class UserAPI(private val userRepository: UserRepository,
         return response.dataJson(HttpServletResponse.SC_OK, "Successfully validated and refreshed token", jwt)
     }
 
+    /**
+     * If the user is logged and exists in the db, return the user object.
+     */
     @GetMapping("/profile")
     fun profile(@CookieValue("auth-token") token: String,
                 response: HttpServletResponse): DataJSONResponse<User> {
+
         val validate = validate(token, response)
         if (validate.status != HttpServletResponse.SC_OK)
             return response.dataJson(HttpServletResponse.SC_BAD_REQUEST, "Couldn't validate token")
@@ -106,32 +120,32 @@ class UserAPI(private val userRepository: UserRepository,
 
         return response.dataJson(HttpServletResponse.SC_OK, data = foundProfile.get())
     }
-}
 
-data class RegistrationForm(
-        val username: String?,
-        val password: String?,
-        val reEnterPassword: String?,
-        val firstName: String?,
-        val lastName: String?
-) {
-    fun isValid(): Pair<Boolean, String> {
-        val errMsg: String = when {
-            username == null -> "Username is missing."
-            password == null -> "Password is missing."
-            reEnterPassword == null -> "Re-entered password is missing."
-            reEnterPassword != password -> "Password doesn't match"
-            firstName == null -> "First name is missing."
-            lastName == null -> "Last name is missing."
-            else -> ""
+    data class RegistrationForm(
+            val username: String?,
+            val password: String?,
+            val reEnterPassword: String?,
+            val firstName: String?,
+            val lastName: String?
+    ) {
+        fun isValid(): Pair<Boolean, String> {
+            val errMsg: String = when {
+                username == null -> "Username is missing."
+                password == null -> "Password is missing."
+                reEnterPassword == null -> "Re-entered password is missing."
+                reEnterPassword != password -> "Password doesn't match"
+                firstName == null -> "First name is missing."
+                lastName == null -> "Last name is missing."
+                else -> ""
+            }
+
+            return errMsg.isEmpty() to errMsg
         }
 
-        return errMsg.isEmpty() to errMsg
+        fun toUser(): User = User(
+                username as String,
+                password as String,
+                firstName as String,
+                lastName as String)
     }
-
-    fun toUser(): User = User(
-            username as String,
-            password as String,
-            firstName as String,
-            lastName as String)
 }

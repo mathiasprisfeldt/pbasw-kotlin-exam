@@ -11,6 +11,9 @@ import org.springframework.context.annotation.Configuration
 @Configuration
 class BlogConfiguration {
 
+    /**
+     * Initializes the database with some preset data
+     */
     @Bean
     fun databaseIntializer(userRepository: UserRepository,
                            articleRepository: ArticleRepository) = ApplicationRunner {

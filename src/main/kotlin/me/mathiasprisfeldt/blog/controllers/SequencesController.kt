@@ -14,6 +14,10 @@ class SequencesController {
         return "sequences"
     }
 
+    /**
+     * When the user has submitted some numbers the math-table sequence
+     * validate the input and return the result.
+     */
     @PostMapping("")
     fun postSequences(@ModelAttribute form: SequencesForm): ModelAndView {
         val mv = ModelAndView("sequences")
@@ -30,6 +34,13 @@ class SequencesController {
             val tableNumber: Int?,
             val tablePrintAmount: Int?
     ) {
+        /**
+         * The validation consist of a boolean, if it failed
+         * or not, and the error msg.
+         *
+         * If the tableNumber and tablePrintAmount is not null its
+         * considered acceptable.
+         */
         fun isValid(): Pair<Boolean, String> {
             var errMsg = ""
 
@@ -39,6 +50,10 @@ class SequencesController {
             return errMsg.isEmpty() to errMsg
         }
 
+        /**
+         * Calculates the result of the math-table sequence by using the
+         * input parameters of the form.
+         */
         fun result(): String? {
             if (tableNumber == null || tablePrintAmount == null)
                 return null

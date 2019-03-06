@@ -15,13 +15,23 @@ import org.springframework.context.annotation.Scope
 class JWTConfiguration(private val properties: BlogProperties,
                        private val userRepository: UserRepository) {
 
+    /**
+     * The kind of algorithm the JWT generator uses.
+     */
     private final val algorithm: Algorithm = Algorithm.HMAC256(properties.jwtSecret)
 
+    /**
+     * Builds a JWT verifier that uses the correct algorithm and
+     * properties from BlogProperties
+     */
     val verifier: JWTVerifier = JWT.require(algorithm)
             .withIssuer(properties.jwtIssuer)
             .withAudience(properties.jwtAudience)
             .build()
 
+    /**
+     * With a given user ID it creates a new JWT token and signs it.
+     */
     @Bean
     @Scope("prototype")
     fun create(userId: Long): String {
@@ -33,6 +43,10 @@ class JWTConfiguration(private val properties: BlogProperties,
                 .sign(algorithm)
     }
 
+    /**
+     * Uses the verifier to verify a specific token
+     * It checks the algorithm and the secret.
+     */
     @Bean
     @Scope("prototype")
     fun verify(token: String): DecodedJWT? {
@@ -43,6 +57,10 @@ class JWTConfiguration(private val properties: BlogProperties,
         }
     }
 
+    /**
+     * This acts both as a verifier and a refresher by
+     * creating a new auth-token and returning it to the requester.
+     */
     @Bean
     @Scope("prototype")
     fun verifyRefresh(token: String): String? {
