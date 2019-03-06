@@ -2,21 +2,16 @@ package me.mathiasprisfeldt.blog.tests
 
 import me.mathiasprisfeldt.blog.extensions.toSlug
 import me.mathiasprisfeldt.blog.repositories.ArticleRepository
+import org.assertj.core.api.Assertions.assertThat
+import org.junit.jupiter.api.BeforeAll
 import org.junit.jupiter.api.Test
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.context.SpringBootTest
 import org.springframework.boot.test.web.client.TestRestTemplate
 import org.springframework.boot.test.web.client.getForEntity
-import org.assertj.core.api.Assertions.assertThat
-import org.junit.jupiter.api.BeforeAll
-import org.springframework.boot.test.web.client.exchange
 import org.springframework.boot.web.server.LocalServerPort
-import org.springframework.http.HttpMethod
 import org.springframework.http.HttpStatus
-import org.springframework.http.client.ClientHttpRequestInterceptor
 import org.springframework.web.util.HtmlUtils
-import java.util.*
-import java.util.Collections.singletonList
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 class ArticleTests(@Autowired val testRestTemplate: TestRestTemplate,

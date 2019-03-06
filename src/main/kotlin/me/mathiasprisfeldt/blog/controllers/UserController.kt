@@ -2,7 +2,6 @@ package me.mathiasprisfeldt.blog.controllers
 
 import me.mathiasprisfeldt.blog.apis.RegistrationForm
 import me.mathiasprisfeldt.blog.apis.UserAPI
-import me.mathiasprisfeldt.blog.entities.Article
 import me.mathiasprisfeldt.blog.entities.User
 import me.mathiasprisfeldt.blog.repositories.UserRepository
 import org.springframework.stereotype.Controller

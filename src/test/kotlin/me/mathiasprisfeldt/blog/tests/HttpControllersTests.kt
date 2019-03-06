@@ -8,7 +8,6 @@ import me.mathiasprisfeldt.blog.entities.User
 import me.mathiasprisfeldt.blog.repositories.ArticleRepository
 import me.mathiasprisfeldt.blog.repositories.UserRepository
 import org.hamcrest.Matchers.containsString
-import org.junit.jupiter.api.BeforeAll
 import org.junit.jupiter.api.Test
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest
@@ -24,9 +23,9 @@ class HttpControllersTests(@Autowired val mockMvc: MockMvc) {
     @MockkBean(relaxed = true) private lateinit var userRepository: UserRepository
     @MockkBean(relaxed = true) private lateinit var articleRepository: ArticleRepository
 
-    val user = User("testuser", "Test", "User", "")
+    private val user = User("testuser", "Test", "User", "")
 
-    val article1 = Article(
+    private val article1 = Article(
             title = "Tonni Bonde's Marketing Tips",
             headline = "Bli' Anderkendt, hørt og stjålen fra",
             content = "Tonni nåede desværre ikke at skrive denne bog færdig da han har travlt" +
@@ -34,7 +33,7 @@ class HttpControllersTests(@Autowired val mockMvc: MockMvc) {
             author = user
     )
 
-    val article2 = Article(
+    private val article2 = Article(
             title = "Tonni Bonde's Kogebog",
             headline = "159 tips til hvordan du tilbereder en klageånd",
             content = "Læg låg på og ind i æ' ovn, nemt og renligt.",

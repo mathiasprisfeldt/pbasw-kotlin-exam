@@ -8,8 +8,6 @@ import org.springframework.boot.ApplicationRunner
 import org.springframework.boot.test.web.client.TestRestTemplate
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
-import org.springframework.http.HttpEntity
-import org.springframework.http.HttpHeaders
 import org.springframework.http.client.ClientHttpRequestInterceptor
 import org.springframework.test.context.TestPropertySource
 

@@ -1,10 +1,7 @@
 package me.mathiasprisfeldt.blog.controllers
 
 import me.mathiasprisfeldt.blog.apis.ArticleAPI
-import me.mathiasprisfeldt.blog.entities.Article
 import me.mathiasprisfeldt.blog.entities.User
-import me.mathiasprisfeldt.blog.extensions.JSONResponse
-import me.mathiasprisfeldt.blog.extensions.json
 import me.mathiasprisfeldt.blog.repositories.ArticleRepository
 import org.springframework.stereotype.Controller
 import org.springframework.ui.Model

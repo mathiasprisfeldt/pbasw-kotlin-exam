@@ -1,7 +1,5 @@
 package me.mathiasprisfeldt.blog.extensions
 
-import me.mathiasprisfeldt.blog.entities.User
-import java.time.LocalDateTime
 import java.util.*
 import javax.servlet.http.Cookie
 import javax.servlet.http.HttpServletResponse
