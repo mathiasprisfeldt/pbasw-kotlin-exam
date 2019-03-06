@@ -17,6 +17,15 @@ import javax.servlet.http.HttpServletResponse
 class ArticleController(private val articleRepository: ArticleRepository,
                         private val articleAPI: ArticleAPI) {
 
+    @GetMapping("")
+    fun getArticles(model: Model,
+                    @ModelAttribute("currUser") user: User?): String {
+
+        model["articles"] = articleRepository.findAllByOrderByAddedAtDesc()
+
+        return "article/articles"
+    }
+
     @GetMapping("/{slug}")
     fun getArticle(@ModelAttribute("currUser") user: User?,
                    @PathVariable slug: String,

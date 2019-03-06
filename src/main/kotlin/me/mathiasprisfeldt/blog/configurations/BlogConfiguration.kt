@@ -14,7 +14,7 @@ class BlogConfiguration {
     @Bean
     fun databaseIntializer(userRepository: UserRepository,
                            articleRepository: ArticleRepository) = ApplicationRunner {
-        val user = User("tonnibonde", "password", "Bonde", "Bonde")
+        val user = User("tonnibonde", "password", "Tonni", "Bonde")
         user.description = "Manden der kan sælge dig alt!"
         userRepository.save(user)
 

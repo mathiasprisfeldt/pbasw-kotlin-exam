@@ -2,19 +2,22 @@
 
 <h1>{{cfg.title}}</h1>
 <h2>{{cfg.desc}}</h2>
+<br>
 
 <div class="articles">
+    <h3>Recent Articles:</h3>
     {{#articles}}
         <section>
             <header class="article-header">
                 <h2 class="article-title"><a href="/article/{{slug}}">{{title}}</a></h2>
-                <div class="article-meta">By  <strong>{{author.firstName}}</strong>, on <strong>{{addedAtFormatted}}</strong></div>
+                <div class="article-meta">By  <strong>{{author.fullName}}</strong>, on <strong>{{addedAtFormatted}}</strong></div>
             </header>
             <div class="article-description">
                 {{headline}}
             </div>
         </section>
     {{/articles}}
+    <h3><a href="/article">See all</a></h3>
 </div>
 
 <br>

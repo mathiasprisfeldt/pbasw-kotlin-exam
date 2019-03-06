@@ -17,6 +17,9 @@ class User(
 
     var token: String = ""
 
+    val fullName: String
+        get() = "$firstName $lastName"
+
     fun login(password: String): Boolean = password.hashCode() == this.password
 
     constructor(login: String, password: String, firstName: String, lastName: String) :

@@ -21,7 +21,7 @@ class HomeController(
                 response: HttpServletResponse): String {
 
         if (user != null) {
-            val articles = articleRepository.findAllByOrderByAddedAtDesc()
+            val articles = articleRepository.findAllByOrderByAddedAtDesc().take(3)
             model["articles"] = articles
             return "home"
         }
