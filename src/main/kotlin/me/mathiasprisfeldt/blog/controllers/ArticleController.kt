@@ -2,6 +2,7 @@ package me.mathiasprisfeldt.blog.controllers
 
 import me.mathiasprisfeldt.blog.apis.ArticleAPI
 import me.mathiasprisfeldt.blog.entities.User
+import me.mathiasprisfeldt.blog.extensions.toSlug
 import me.mathiasprisfeldt.blog.repositories.ArticleRepository
 import org.springframework.stereotype.Controller
 import org.springframework.ui.Model
@@ -153,6 +154,6 @@ class ArticleController(private val articleRepository: ArticleRepository,
             return getEditArticle(model, slug, user, response)
         }
 
-        return "redirect:/article/$slug"
+        return "redirect:/article/${newTitle.toSlug()}"
     }
 }
