@@ -16,4 +16,9 @@ The main focus was programming in Kotlin and make something usable, so the visua
 
 <br>
 
+## DISCLAIMER!
+The site is quickly made and security was not a focus, even though i hash passwords the authentication for using the REST API is lacking, so please dont use any personal information in the demo.
+
+<br>
+
 [Live Demo](https://salty-everglades-47131.herokuapp.com)
