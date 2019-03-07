@@ -47,7 +47,7 @@ class ArticleAPI(private val articleRepository: ArticleRepository) {
     }
 
     /**
-     * By a given slug as parameter it removes the aritcle if the current
+     * By a given slug as parameter it removes the article if the current
      * user is authorized.
      */
     @PostMapping("/article/remove")

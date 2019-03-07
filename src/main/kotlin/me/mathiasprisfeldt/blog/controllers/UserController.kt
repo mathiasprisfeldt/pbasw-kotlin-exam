@@ -55,10 +55,11 @@ class UserController(private val userRepository: UserRepository,
         }
 
         // If the form was valid but couldn't register in the API, return the error msg.
-        val responseMsg = userAPI.register(form, response)
-        if (responseMsg.status == HttpServletResponse.SC_FORBIDDEN) {
-            model["errMsg"] = responseMsg.message
-            return "user/register"
+        userAPI.register(form, response).run {
+            if (this.status == HttpServletResponse.SC_FORBIDDEN) {
+                model["errMsg"] = this.message
+                return "user/register"
+            }
         }
 
         return "redirect:/"
@@ -86,13 +87,15 @@ class UserController(private val userRepository: UserRepository,
                   response: HttpServletResponse): String {
 
         // Uses the API to log the user in.
-        val errMsg = userAPI.login(username, password, response)
+        userAPI.login(username, password, response).run {
 
-        // If the API call returns an acceptable result redirect the user to home screen.
-        if (errMsg.status == HttpServletResponse.SC_ACCEPTED)
-            return "redirect:/"
+            // If the API call returns an acceptable result redirect the user to home screen.
+            if (this.status == HttpServletResponse.SC_ACCEPTED)
+                return "redirect:/"
 
-        model["errMsg"] = errMsg.message
+            model["errMsg"] = this.message
+        }
+
         return "user/login"
     }
 
@@ -138,10 +141,9 @@ class UserController(private val userRepository: UserRepository,
             return ""
         }
 
-        val foundUser = userRepository.findByUsername(username)
-        if (foundUser != null) {
-            model["user"] = foundUser
-            model["articles"] = foundUser.articles
+        userRepository.findByUsername(username)?.run {
+            model["user"] = this
+            model["articles"] = this.articles
         }
 
         return "user/profile"

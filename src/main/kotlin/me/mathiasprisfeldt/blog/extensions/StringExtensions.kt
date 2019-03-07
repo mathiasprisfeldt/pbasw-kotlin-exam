@@ -9,9 +9,11 @@ fun String.wordCountByLength(length: Int): Int = this.words().count { it.value.l
 fun String.periodCount(): Int = this.count { it == '.' }
 
 fun String.lix(): Pair<Int, String> {
+    // If the text doesn't contain a single word, there's no Lix number.
     val wordCount = this.wordCount()
     if (wordCount == 0) return 0 to "Teksten har ingen ord."
 
+    // If the text doesn't have and periods, we cant calculate the correct Lix number.
     val periodCount = this.periodCount()
     if (periodCount == 0) return 0 to "Teksten har ingen punktummer."
 
@@ -19,14 +21,5 @@ fun String.lix(): Pair<Int, String> {
 
     val lixAmount = Math.round((wordCount / periodCount.toFloat()) + ((longWordsCount * 100) / wordCount.toFloat()))
 
-    val lixText = when(lixAmount) {
-        in Int.MIN_VALUE..24 -> "Let tekst for alle læsere."
-        in 25..34 -> "Let for øvede læsere."
-        in 35..44 -> "Middel."
-        in 45..54 -> "Svær."
-        in 55..Int.MAX_VALUE -> "Meget svær."
-        else -> "Ukendt."
-    }
-
-    return lixAmount to lixText
+    return lixAmount to lixAmount.toLix()
 }

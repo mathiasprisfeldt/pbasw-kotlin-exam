@@ -29,7 +29,7 @@ class ArticleTests(@Autowired val testRestTemplate: TestRestTemplate,
     fun beforeAll() {
         config.interceptHeaders(testRestTemplate)
 
-        val homeEntity = testRestTemplate.getForEntity<String>("/")
+        val homeEntity = testRestTemplate.getForEntity<String>("/article")
         assertThat(homeEntity.statusCode).isEqualTo(HttpStatus.OK)
         assertThat(homeEntity.body).isNotNull()
 
