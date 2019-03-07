@@ -126,7 +126,8 @@ class UserAPI(private val userRepository: UserRepository,
             val password: String?,
             val reEnterPassword: String?,
             val firstName: String?,
-            val lastName: String?
+            val lastName: String?,
+            val description: String?
     ) {
         fun isValid(): Pair<Boolean, String> {
             val errMsg: String = when {
@@ -146,6 +147,7 @@ class UserAPI(private val userRepository: UserRepository,
                 username as String,
                 password as String,
                 firstName as String,
-                lastName as String)
+                lastName as String,
+                if (description.isNullOrBlank()) null else description)
     }
 }

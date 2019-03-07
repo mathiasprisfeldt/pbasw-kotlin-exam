@@ -3,7 +3,12 @@
 <section class="article">
     <header class="article-header">
         <h1 class="article-title">{{article.title}}</h1>
-        <p class="article-meta">By  <strong>{{article.author.firstName}}</strong>, on <strong>{{article.addedAtFormatted}}</strong></p>
+        <p class="article-meta">
+            By
+            <a href="/profile/{{article.author.username}}"><strong>{{article.author.firstName}}</strong></a>,
+
+            on <strong>{{article.addedAtFormatted}}</strong>
+        </p>
     </header>
 
     <div class="article-info">

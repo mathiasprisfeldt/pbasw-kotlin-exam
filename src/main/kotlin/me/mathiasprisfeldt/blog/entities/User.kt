@@ -31,6 +31,17 @@ class User(
      */
     fun login(password: String): Boolean = password.hashCode() == this.password
 
-    constructor(login: String, password: String, firstName: String, lastName: String) :
-            this(login, password.hashCode(), firstName, lastName)
+    constructor(
+            login: String,
+            password: String,
+            firstName: String,
+            lastName: String,
+            description: String? = null
+            ) : this(
+                login,
+                password.hashCode(),
+                firstName,
+                lastName,
+                description
+            )
 }
