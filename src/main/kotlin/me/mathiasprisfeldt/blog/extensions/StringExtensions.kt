@@ -21,5 +21,5 @@ fun String.lix(): Pair<Int, String> {
 
     val lixAmount = Math.round((wordCount / periodCount.toFloat()) + ((longWordsCount * 100) / wordCount.toFloat()))
 
-    return lixAmount to lixAmount.toLix()
+    return lixAmount to lixAmount.toLixDesc()
 }
